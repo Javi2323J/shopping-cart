@@ -2,14 +2,29 @@ import React, { useEffect, useState } from 'react'
 
 import { db } from './data/db'
 import { Header, Guitar } from './components'
-import { GuitarType } from './types'
+import { GuitarType, CartItemType } from './types'
 
 function App(): React.JSX.Element {
   const [data, setData] = useState<GuitarType[]>([])
+  const [cart, setCart] = useState<CartItemType[]>([])
 
   useEffect(() => {
     setData(db) // No seria necesario ya que es un archivo local, pero esta seria una manera correcta si la data viene desde una API
   }, [])
+
+  function addToCart(item: CartItemType) {
+    const itemExists = cart.findIndex(guitar => guitar.id === item.id)
+
+    if (itemExists >= 0) {
+      const updatedCart = [...cart]
+      updatedCart[itemExists].quantity!++
+
+      setCart(updatedCart)
+    } else {
+      item.quantity = 1
+      setCart(prevCart => [...prevCart, item])
+    }
+  }
 
   return (
     <>
@@ -20,8 +35,11 @@ function App(): React.JSX.Element {
 
         <div className="row mt-5">
           {data.map(guitar => (
-            <Guitar key={guitar.id}
+            <Guitar
+              key={guitar.id}
               guitar={guitar}
+              setCart={setCart}
+              addToCart={addToCart}
             />
           ))}
         </div>
