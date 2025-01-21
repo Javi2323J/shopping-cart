@@ -1,9 +1,8 @@
 import React from 'react'
-import { GuitarType, CartItemType } from '../types'
+import { GuitarType } from '../types'
 
 interface Props {
     guitar: GuitarType
-    setCart: React.Dispatch<React.SetStateAction<CartItemType[]>>
     addToCart: (item: GuitarType) => void
 }
 
