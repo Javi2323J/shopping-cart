@@ -1,12 +1,12 @@
 import React from 'react'
 
-import { CartItemType } from '../types'
+import { CartItemType, GuitarType } from '../types'
 
 interface Props {
     cart: CartItemType[]
-    removeFromCart: (id: number) => void
-    increaseQuantity: (id: number) => void
-    decreaseQuantity: (id: number) => void
+    removeFromCart: (id: GuitarType['id']) => void
+    increaseQuantity: (id: GuitarType['id']) => void
+    decreaseQuantity: (id: GuitarType['id']) => void
     clearCart: () => void
     isEmpty: boolean
     cartTotal: number

@@ -1,12 +1,12 @@
 import React from 'react'
-import { GuitarType } from '../types'
+import type { GuitarType } from '../types'
 
-interface Props {
+type GuitarProps = {
     guitar: GuitarType
     addToCart: (item: GuitarType) => void
 }
 
-export const Guitar: React.FC<Props> = ({ guitar, addToCart }) => {
+export default function Guitar({ guitar, addToCart }: GuitarProps): React.JSX.Element {
     const { name, image, description, price } = guitar
 
     return (

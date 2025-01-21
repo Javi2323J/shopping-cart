@@ -1,10 +1,10 @@
 import { CartItemType } from './CartItemType'
 import { GuitarType } from './GuitarType'
 
-export type useCartReturnType = {
+export type useCartReturnType = { // no es necesario
     data: GuitarType[]
     cart: CartItemType[],
-    addToCart: (item: CartItemType) => void
+    addToCart: (item: GuitarType) => void
     removeFromCart: (id: number) => void
     increaseQuantity: (id: number) => void
     decreaseQuantity: (id: number) => void

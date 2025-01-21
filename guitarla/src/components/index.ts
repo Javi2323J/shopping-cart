@@ -1,5 +1,5 @@
 import { Header } from './Header'
-import { Guitar } from './Guitar'
+import Guitar from './Guitar'
 
 export {
     Header,

@@ -1,4 +1,4 @@
-import { GuitarType } from '../types'
+import type { GuitarType } from '../types'
 
 export const db: GuitarType[] = [
     {
