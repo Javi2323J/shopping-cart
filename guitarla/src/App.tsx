@@ -7,8 +7,6 @@ import { Header, Guitar } from './components'
 
 function App(): React.JSX.Element {
   const {
-    increaseQuantity,
-    decreaseQuantity,
     clearCart,
   } = useCart()
 
@@ -19,8 +17,6 @@ function App(): React.JSX.Element {
       <Header
         cart={state.cart}
         dispatch={dispatch}
-        increaseQuantity={increaseQuantity}
-        decreaseQuantity={decreaseQuantity}
         clearCart={clearCart}
       />
 

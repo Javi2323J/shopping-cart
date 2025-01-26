@@ -1,17 +1,15 @@
 import React, { Dispatch, useMemo } from 'react'
 
-import { CartItemType, GuitarType } from '../types'
+import { CartItemType } from '../types'
 import { CartActions } from '../reducers/cart-reducer'
 
 interface Props {
     cart: CartItemType[]
     dispatch: Dispatch<CartActions>
-    increaseQuantity: (id: GuitarType['id']) => void
-    decreaseQuantity: (id: GuitarType['id']) => void
     clearCart: () => void
 }
 
-export const Header: React.FC<Props> = ({ cart, dispatch, increaseQuantity, decreaseQuantity, clearCart, }) => {
+export const Header: React.FC<Props> = ({ cart, dispatch, clearCart, }) => {
     //State Derivado
     const isEmpty = useMemo(() => cart.length === 0, [cart])
     const cartTotal = useMemo(() => cart.reduce((total, item) => total + (item.quantity! * item.price), 0), [cart])
@@ -59,14 +57,14 @@ export const Header: React.FC<Props> = ({ cart, dispatch, increaseQuantity, decr
                                                             <button
                                                                 type="button"
                                                                 className="btn btn-dark"
-                                                                onClick={() => decreaseQuantity(guitar.id)}>
+                                                                onClick={() => dispatch({ type: 'decrease-quantity', payload: { id: guitar.id } })}>
                                                                 -
                                                             </button>
                                                             {guitar.quantity}
                                                             <button
                                                                 type="button"
                                                                 className="btn btn-dark"
-                                                                onClick={() => increaseQuantity(guitar.id)}>
+                                                                onClick={() => dispatch({ type: 'increase-quantity', payload: { id: guitar.id } })}>
                                                                 +
                                                             </button>
                                                         </td>
