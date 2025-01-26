@@ -6,10 +6,9 @@ import { CartActions } from '../reducers/cart-reducer'
 interface Props {
     cart: CartItemType[]
     dispatch: Dispatch<CartActions>
-    clearCart: () => void
 }
 
-export const Header: React.FC<Props> = ({ cart, dispatch, clearCart, }) => {
+export const Header: React.FC<Props> = ({ cart, dispatch }) => {
     //State Derivado
     const isEmpty = useMemo(() => cart.length === 0, [cart])
     const cartTotal = useMemo(() => cart.reduce((total, item) => total + (item.quantity! * item.price), 0), [cart])
@@ -84,7 +83,7 @@ export const Header: React.FC<Props> = ({ cart, dispatch, clearCart, }) => {
                                         <p className="text-end">Total pagar: <span className="fw-bold">{cartTotal}</span></p>
                                     </>
                                 )}
-                                <button className="btn btn-dark w-100 mt-3 p-2" onClick={clearCart}>Vaciar Carrito</button>
+                                <button className="btn btn-dark w-100 mt-3 p-2" onClick={() => dispatch({ type: 'clear-cart' })}>Vaciar Carrito</button>
                             </div>
                         </div>
                     </nav>
