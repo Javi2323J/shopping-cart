@@ -1,4 +1,4 @@
-import React, { useReducer } from 'react'
+import React, { useReducer, useEffect } from 'react'
 
 // import { useCart } from './hooks/useCart'
 
@@ -7,6 +7,10 @@ import { Header, Guitar } from './components'
 
 function App(): React.JSX.Element {
   const [state, dispatch] = useReducer(cartReducer, initialState)
+
+  useEffect(() => {
+    localStorage.setItem('cart', JSON.stringify(state.cart))
+  }, [state.cart])
 
   return (
     <>
