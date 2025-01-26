@@ -1,5 +1,8 @@
+import React, { useReducer } from 'react'
+
 import { useCart } from './hooks/useCart'
 
+import { cartReducer, initialState } from './reducers/cart-reducer'
 import { Header, Guitar } from './components'
 
 function App(): React.JSX.Element {
@@ -14,6 +17,8 @@ function App(): React.JSX.Element {
     isEmpty,
     cartTotal
   } = useCart()
+
+  const [state, dispatch] = useReducer(cartReducer, initialState)
 
   return (
     <>
