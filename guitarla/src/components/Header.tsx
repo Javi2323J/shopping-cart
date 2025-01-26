@@ -1,18 +1,18 @@
-import React from 'react'
+import React, { Dispatch, useMemo } from 'react'
 
-import { CartItemType, GuitarType } from '../types'
+import { CartItemType } from '../types'
+import { CartActions } from '../reducers/cart-reducer'
 
 interface Props {
     cart: CartItemType[]
-    removeFromCart: (id: GuitarType['id']) => void
-    increaseQuantity: (id: GuitarType['id']) => void
-    decreaseQuantity: (id: GuitarType['id']) => void
-    clearCart: () => void
-    isEmpty: boolean
-    cartTotal: number
+    dispatch: Dispatch<CartActions>
 }
 
-export const Header: React.FC<Props> = ({ cart, removeFromCart, increaseQuantity, decreaseQuantity, clearCart, isEmpty, cartTotal }) => {
+export const Header: React.FC<Props> = ({ cart, dispatch }) => {
+    //State Derivado
+    const isEmpty = useMemo(() => cart.length === 0, [cart])
+    const cartTotal = useMemo(() => cart.reduce((total, item) => total + (item.quantity! * item.price), 0), [cart])
+
     return (
         <header className="py-5 header">
             <div className="container-xl">
@@ -56,14 +56,14 @@ export const Header: React.FC<Props> = ({ cart, removeFromCart, increaseQuantity
                                                             <button
                                                                 type="button"
                                                                 className="btn btn-dark"
-                                                                onClick={() => decreaseQuantity(guitar.id)}>
+                                                                onClick={() => dispatch({ type: 'decrease-quantity', payload: { id: guitar.id } })}>
                                                                 -
                                                             </button>
                                                             {guitar.quantity}
                                                             <button
                                                                 type="button"
                                                                 className="btn btn-dark"
-                                                                onClick={() => increaseQuantity(guitar.id)}>
+                                                                onClick={() => dispatch({ type: 'increase-quantity', payload: { id: guitar.id } })}>
                                                                 +
                                                             </button>
                                                         </td>
@@ -71,7 +71,7 @@ export const Header: React.FC<Props> = ({ cart, removeFromCart, increaseQuantity
                                                             <button
                                                                 className="btn btn-danger"
                                                                 type="button"
-                                                                onClick={() => removeFromCart(guitar.id)}>
+                                                                onClick={() => dispatch({ type: 'remove-from-cart', payload: { id: guitar.id } })}>
                                                                 X
                                                             </button>
                                                         </td>
@@ -83,7 +83,7 @@ export const Header: React.FC<Props> = ({ cart, removeFromCart, increaseQuantity
                                         <p className="text-end">Total pagar: <span className="fw-bold">{cartTotal}</span></p>
                                     </>
                                 )}
-                                <button className="btn btn-dark w-100 mt-3 p-2" onClick={clearCart}>Vaciar Carrito</button>
+                                <button className="btn btn-dark w-100 mt-3 p-2" onClick={() => dispatch({ type: 'clear-cart' })}>Vaciar Carrito</button>
                             </div>
                         </div>
                     </nav>
