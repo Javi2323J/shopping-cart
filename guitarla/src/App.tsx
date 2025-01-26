@@ -7,15 +7,10 @@ import { Header, Guitar } from './components'
 
 function App(): React.JSX.Element {
   const {
-    data,
-    cart,
-    addToCart,
     removeFromCart,
     increaseQuantity,
     decreaseQuantity,
     clearCart,
-    isEmpty,
-    cartTotal
   } = useCart()
 
   const [state, dispatch] = useReducer(cartReducer, initialState)
@@ -23,24 +18,22 @@ function App(): React.JSX.Element {
   return (
     <>
       <Header
-        cart={cart}
+        cart={state.cart}
         removeFromCart={removeFromCart}
         increaseQuantity={increaseQuantity}
         decreaseQuantity={decreaseQuantity}
         clearCart={clearCart}
-        isEmpty={isEmpty}
-        cartTotal={cartTotal}
       />
 
       <main className="container-xl mt-5">
         <h2 className="text-center">Nuestra Colección</h2>
 
         <div className="row mt-5">
-          {data.map(guitar => ( // TODO
+          {state.data.map(guitar => (
             <Guitar
               key={guitar.id}
               guitar={guitar}
-              addToCart={addToCart}
+              dispatch={dispatch}
             />
           ))}
         </div>

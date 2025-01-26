@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useMemo } from 'react'
 
 import { CartItemType, GuitarType } from '../types'
 
@@ -8,11 +8,13 @@ interface Props {
     increaseQuantity: (id: GuitarType['id']) => void
     decreaseQuantity: (id: GuitarType['id']) => void
     clearCart: () => void
-    isEmpty: boolean
-    cartTotal: number
 }
 
-export const Header: React.FC<Props> = ({ cart, removeFromCart, increaseQuantity, decreaseQuantity, clearCart, isEmpty, cartTotal }) => {
+export const Header: React.FC<Props> = ({ cart, removeFromCart, increaseQuantity, decreaseQuantity, clearCart, }) => {
+    //State Derivado
+    const isEmpty = useMemo(() => cart.length === 0, [cart])
+    const cartTotal = useMemo(() => cart.reduce((total, item) => total + (item.quantity! * item.price), 0), [cart])
+
     return (
         <header className="py-5 header">
             <div className="container-xl">
